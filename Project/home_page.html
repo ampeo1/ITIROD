@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width">
+        <link rel="stylesheet" href="style.css">
+        <link rel="preconnect" href="https://fonts.gstatic.com">
+        <link href="https://fonts.googleapis.com/css2?family=Roboto:ital@1&display=swap" rel="stylesheet">
+        <title>Ну типо Твиттер</title>
+    </head>
+    <body>
+        <div class="container">
+            <div class="two-col-grid">
+                <div class="grid-item">
+                    <img class="logo-image" src="./img/GIVMA.png" alt="Logo">
+                </div>
+                <div class="grid-item">
+                    <div class="div-center text-center">
+                        <h1 class="main-text">
+                            Аналог Твиттера
+                        </h1>
+                        <h4 class="main-text">
+                            Можешь запостить сюда свои мысли
+                        </h4>
+                        <div>
+                            <button class="button-main" role="button" id="register">
+                                    Зарегистрироваться
+                            </button>
+                            <button class="button-main secondary-color" role="button" id="logIn">
+                                Войти
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <dialog id="registerDialog">
+            <div> 
+                <h2 class="main-text text-center">Создать учётную запись</h2>
+                <form>
+                    <input type="text" placeholder="Имя">
+                    <input type="password" placeholder="Пароль">
+                    <h4 class="main-text text-center">Дата рождения</h4>
+                    <input type="date">
+                    <input type="submit" class="button-main">
+                </form>
+            </div>
+        </dialog>
+
+        <dialog id="logInDialog">
+            <div>
+                <h2 class="main-text text-center">Авторизация</h2>
+                <form>
+                    <input type="text" placeholder="Имя">
+                    <input type="password" placeholder="Пароль">
+                    <input type="submit" class="button-main">
+                </form>
+            </div>
+        </dialog>
+
+        <script src="home_page/scripts.js"></script>
+    </body>
+</html>

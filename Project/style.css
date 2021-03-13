@@ -1,0 +1,155 @@
+html{
+    box-sizing: border-box;
+}
+
+*,
+*:before,
+*:after {
+  box-sizing: inherit;
+}
+
+body{
+    background-color: #131313;
+    font-family: 'Roboto', sans-serif;
+}
+
+.container{
+    max-width: 1200px;
+    margin: 0px auto;
+    padding: 0px 15px;
+}
+
+.logo-image{
+    width: 100%;
+}
+
+.div-center{
+    margin-top: 20%;
+}
+
+.two-col-grid .grid-item{
+    width: 50%;
+    float: left;
+}
+
+@media(max-width: 650px){
+    .two-col-grid .grid-item{
+        width: 100%;
+        float: none;
+    }
+
+    .logo-image{
+        width: 70%;
+        display: block;
+        margin-left: auto;
+        margin-right: auto;
+    }
+
+    .div-center{
+        margin-top: 0px;
+    }
+}
+
+.grid-item{
+    padding-right: 20px;
+}
+
+.grid-item:last-child{
+    padding-right: 0px;
+}
+
+.grid-item:nth-child(2n + 2){
+    margin-right: 0;
+    float: right;
+}
+
+.main-text{
+    color: #E7BD70;
+}
+
+.button{
+    display: block;
+    position: relative;
+    min-height: 48px;
+    margin-right: 20px;
+    min-width: calc(77.28px);
+    max-width: 380px;
+    margin-bottom: 20px;
+    padding-left: 32px;
+    padding-right: 32px;
+    border-width: 1px;
+    background-color: #E7BD70;
+}
+
+.button-main{
+    display: inline-block;
+    color: #E7BD70;
+    background-color: #131313;
+    font-weight: 700;
+    text-decoration: none;
+    user-select: none;
+    padding: .5em 2em;
+    outline: none;
+    border: 2px solid;
+    border-radius: 1px;
+    transition: 0.2s;
+} 
+
+.secondary-color{
+    background-color: #6b6868;
+}
+
+.button-main:hover { background: rgba(255,255,255,.2); }
+.button-main:active { background: white; }
+
+.text-button{
+    display: block;
+    min-height: 48px;
+    margin-right: 20px;
+    min-width: calc(77.28px);
+    max-width: 380px;
+    margin-bottom: 20px;
+    padding-left: 32px;
+    padding-right: 32px;
+    border-width: 1px;
+    background-color: #E7BD70;
+    margin: auto;
+}
+
+dialog{
+    background-color: #000000;
+    margin: auto;
+}
+
+.text-center{
+    text-align: center;
+}
+
+input[type="text"], input[type="password"], input[type="date"]{
+    font-family: 'Roboto', sans-serif;
+    font-size: medium;
+    height: 40px;
+    width: 100%;
+    margin-bottom: 20px;
+    background-color: rgb(77, 75, 75);
+    color: white;
+    border-width: 2px;
+    border-color: white;
+}
+
+input[type="text"]::-webkit-input-placeholder{
+    color: white;
+}
+
+input[type="text"]::-moz-placeholder{
+    color:white;
+}
+
+input[type="password"]::-webkit-input-placeholder{
+    color: white;
+}
+
+input[type="password"]::-moz-placeholder{
+    color:white;
+}
+
