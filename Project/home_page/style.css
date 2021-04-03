@@ -14,7 +14,7 @@ body{
 }
 
 .container{
-    max-width: 1200px;
+    max-width: 1440px;
     margin: 0px auto;
     padding: 0px 15px;
 }
@@ -125,7 +125,7 @@ dialog{
     text-align: center;
 }
 
-input[type="text"], input[type="password"], input[type="date"]{
+input[type="text"], input[type="email"], input[type="password"], input[type="date"]{
     font-family: 'Roboto', sans-serif;
     font-size: medium;
     height: 40px;
@@ -142,6 +142,14 @@ input[type="text"]::-webkit-input-placeholder{
 }
 
 input[type="text"]::-moz-placeholder{
+    color:white;
+}
+
+input[type="email"]::-webkit-input-placeholder{
+    color: white;
+}
+
+input[type="email"]::-moz-placeholder{
     color:white;
 }
 

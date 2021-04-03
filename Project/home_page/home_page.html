@@ -12,7 +12,7 @@
         <div class="container">
             <div class="two-col-grid">
                 <div class="grid-item">
-                    <img class="logo-image" src="./img/GIVMA.png" alt="Logo">
+                    <img class="logo-image" src="/img/GIVMA.png" alt="Logo">
                 </div>
                 <div class="grid-item">
                     <div class="div-center text-center">
@@ -23,10 +23,10 @@
                             Можешь запостить сюда свои мысли
                         </h4>
                         <div>
-                            <button class="button-main" role="button" id="register">
+                            <button class="button-main" role="button" id="showRegisterDialog">
                                     Зарегистрироваться
                             </button>
-                            <button class="button-main secondary-color" role="button" id="logIn">
+                            <button class="button-main secondary-color" role="button" id="showLogInDialog">
                                 Войти
                             </button>
                         </div>
@@ -38,12 +38,16 @@
         <dialog id="registerDialog">
             <div> 
                 <h2 class="main-text text-center">Создать учётную запись</h2>
-                <form>
-                    <input type="text" placeholder="Имя">
-                    <input type="password" placeholder="Пароль">
+                <form id="register">
+                    <input name="username" type="text" placeholder="Имя пользователя">
+                    <input name="mail" type="email" placeholder="Почта">
+                    <input name="password" type="password" placeholder="Пароль">
                     <h4 class="main-text text-center">Дата рождения</h4>
-                    <input type="date">
-                    <input type="submit" class="button-main">
+                    <input name="dateOfBirth" type="date">
+                    <menu>
+                        <input type="submit" class="button-main">Зарегистрироваться</шт>
+                        <button id="cancelRegisterDialog" type="reset" class="button-main secondary-color">Закрыть</button>
+                    </menu>
                 </form>
             </div>
         </dialog>
@@ -54,11 +58,18 @@
                 <form>
                     <input type="text" placeholder="Имя">
                     <input type="password" placeholder="Пароль">
-                    <input type="submit" class="button-main">
+                    <menu>
+                        <input type="submit" class="button-main">Зарегистрироваться</шт>
+                        <button id="cancelLogInDialog" type="reset" class="button-main secondary-color">Закрыть</button>
+                    </menu>
                 </form>
             </div>
         </dialog>
 
-        <script src="home_page/scripts.js"></script>
+        <script src="https://www.gstatic.com/firebasejs/8.3.2/firebase.js"></script>
+        <script src="https://www.gstatic.com/firebasejs/ui/4.8.0/firebase-ui-auth.js"></script>
+        
+        <script type="module" src="scripts.js"></script>
+        <script type="module" src="auth.js"></script>
     </body>
 </html>
