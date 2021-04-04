@@ -58,14 +58,15 @@
 
     function register(){
         console.log("register submit");
-        let username = this.querySelector("input[name=username]").value;
-        let mail = this.querySelector("input[name=mail]").value;
-        let password = this.querySelector("input[name=password]").value;
-        let dateOfBirth = this.querySelector("input[name=dateOfBirth]").value;
+        var username = this.querySelector("input[name=username]").value;
+        var mail = this.querySelector("input[name=mail]").value;
+        var password = this.querySelector("input[name=password]").value;
+        var dateOfBirth = this.querySelector("input[name=dateOfBirth]").value;
 
-        ui.createUserWithEmailAndPassword(mail, password).then((userCredential) => {
+        firebase.auth().createUserWithEmailAndPassword(mail, password).then((userCredential) => {
             // Signed in 
             var user = userCredential.user;
+            user.displayName = username;
             console.log("Пользователь зарегистрирован.");
             // ...
         })
@@ -79,3 +80,21 @@
     }
 
     document.getElementById('register').onsubmit = register;
+
+    function logIn(){
+        var mail = this.querySelector("input[name=mail]").value;
+        var password = this.querySelector("input[name=password]").value;
+        document.location.href = 'profile_page.html'
+        firebase.auth().signInWithEmailAndPassword(mail, password).then((userCredential) => {
+            // Signed in
+            var user = userCredential.user;
+            document.path = '/home_page/profile_page.html'
+            // ...
+        })
+        .catch((error) => {
+            var errorCode = error.code;
+            var errorMessage = error.message;
+        });
+    }
+
+    document.getElementById('logIn').onsubmit = logIn;
