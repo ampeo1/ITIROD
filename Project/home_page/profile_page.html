@@ -9,67 +9,107 @@
         <title>Ну типо Твиттер</title>
     </head>
     <body>
+        <header>
+            <div class="header-left">
+                <img class="header-left" src="/img/GIVMA.png" alt="Logo"/>
+                <ul>
+                    <li><a href="#">Мой Профиль</a></li>
+                    <li><a href="#">Лента</a></li>
+                </ul>
+            </div>
+            <div class="header-right"><button>Выход</button></div>
+        </header>
         <div class="container">
-            <div class="two-col-grid">
-                <div class="grid-item">
-                    <img class="logo-image" src="/img/GIVMA.png" alt="Logo">
-                </div>
-                <div class="grid-item">
-                    <div class="div-center text-center">
-                        <h1 class="main-text">
-                            Профиль пейдж
-                        </h1>
-                        <h4 class="main-text">
-                            Можешь запостить сюда свои мысли
-                        </h4>
-                        <div>
-                            <button class="button-main" role="button" id="showRegisterDialog">
-                                    Зарегистрироваться
-                            </button>
-                            <button class="button-main secondary-color" role="button" id="showLogInDialog">
-                                Войти
-                            </button>
+            <div class="two-col-grid-page">
+                <div class="first-col-grid-page">
+                    <h1 class="main-text text-center">Ampeo</h1>
+                    <div class="container-for-avatar">
+                        <div class="stretch-out">
+                            <div class="element">
+                                <img class="profile-avatar" src="/img/method-draw-image.svg">
+                            </div>
                         </div>
+                    </div>
+                </div>
+                <div class="second-col-grid-page">
+                    <form>
+                        <fieldset>
+                            <legend class="main-font main-text">Поделиться</legend>
+                            <textarea class="twitt-text-area main-text" placeholder="Что происходит?"></textarea>
+                            <input type="submit" value="Твитнуть"  class="button-main fr"></fieldset>
+                        </fieldset>
+                    </form>
+                    <div class="container-twitts">
+                        <ul>
+                            <li>
+                                <div class="twitt">
+                                    <img class="profile-avatar twitt-avatar-size" src="/img/method-draw-image.svg">
+                                    <article>
+                                        Такое ощущение, что в моей пачке завёлся домовёнок, который пиздит мои сижки
+                                    </article>
+                                </div>
+                                <section class="actions-on-tweet">
+                                    <div class="retwitt">
+                                        <h3 class="maint-font">4</h3>
+                                        <svg width="20" height="20" xmlns="http://www.w3.org/2000/svg">
+                                            <g id="retwitt">
+                                             <title>Retwitt</title>
+                                             <path opacity="NaN" d="m390.51272,268.0475c158.73363,-326.62968 780.65718,0 0,419.95245c-780.65718,-419.95245 -158.73363,-746.58213 0,-419.95245z" id="svg_1" stroke="#000"/>
+                                             <path stroke="#000" transform="rotate(-90 10.07500457763672,9.782747268676758) " id="svg_2" d="m1.70766,14.35418l11.46326,0l0,-9.14286l-1.75714,0l3.51428,-4.57143l3.51429,4.57143l-1.75714,0l0,13.71429l-14.97755,0l0,-4.57143z" opacity="undefined" fill-opacity="null" stroke-opacity="null" stroke-dasharray="null" stroke-width="null"/>
+                                            </g>
+                                           </svg>
+                                    </div>
+                                    <div class="like">
+                                        <h3 class="maint-font">6</h3>
+                                        <svg width="20" height="20" xmlns="http://www.w3.org/2000/svg">
+                                            <g id="Like">
+                                             <title>Like</title>
+                                             <path stroke="#000" id="svg_1" d="m390.51272,268.0475c158.73363,-326.62968 780.65718,0 0,419.95245c-780.65718,-419.95245 -158.73363,-746.58213 0,-419.95245z" opacity="NaN"/>
+                                             <path id="svg_3" d="m10.00596,5.19058c3.7699,-10.62999 18.54048,0 0,13.66713c-18.54048,-13.66713 -3.7699,-24.29713 0,-13.66713z" opacity="undefined" fill-opacity="null" stroke-opacity="null" stroke-dasharray="null" stroke-width="null"/>
+                                            </g>
+                                           </svg>
+                                    </div>
+                                </section>
+                            </li>
+                            <li>
+                                <div class="twitt">
+                                    <img class="profile-avatar twitt-avatar-size" src="/img/method-draw-image.svg">
+                                    <article>
+                                        Смотрю ход королевы. И вспомнил как мы @bijerning, @durassm ходили на шашки. Не ну, мы точно такую же юбку устраивали
+                                    </article>
+                                </div>
+                                <section class="actions-on-tweet">
+                                    <div class="retwitt">
+                                        <h3 class="maint-font">4</h3>
+                                        <svg width="20" height="20" xmlns="http://www.w3.org/2000/svg">
+                                            <g id="retwitt">
+                                             <title>Retwitt</title>
+                                             <path opacity="NaN" d="m390.51272,268.0475c158.73363,-326.62968 780.65718,0 0,419.95245c-780.65718,-419.95245 -158.73363,-746.58213 0,-419.95245z" id="svg_1" stroke="#000"/>
+                                             <path stroke="#000" transform="rotate(-90 10.07500457763672,9.782747268676758) " id="svg_2" d="m1.70766,14.35418l11.46326,0l0,-9.14286l-1.75714,0l3.51428,-4.57143l3.51429,4.57143l-1.75714,0l0,13.71429l-14.97755,0l0,-4.57143z" opacity="undefined" fill-opacity="null" stroke-opacity="null" stroke-dasharray="null" stroke-width="null"/>
+                                            </g>
+                                           </svg>
+                                    </div>
+                                    <div class="like">
+                                        <h3 class="maint-font">6</h3>
+                                        <svg width="20" height="20" xmlns="http://www.w3.org/2000/svg">
+                                            <g id="Like">
+                                             <title>Like</title>
+                                             <path stroke="#000" id="svg_1" d="m390.51272,268.0475c158.73363,-326.62968 780.65718,0 0,419.95245c-780.65718,-419.95245 -158.73363,-746.58213 0,-419.95245z" opacity="NaN"/>
+                                             <path id="svg_3" d="m10.00596,5.19058c3.7699,-10.62999 18.54048,0 0,13.66713c-18.54048,-13.66713 -3.7699,-24.29713 0,-13.66713z" opacity="undefined" fill-opacity="null" stroke-opacity="null" stroke-dasharray="null" stroke-width="null"/>
+                                            </g>
+                                           </svg>
+                                    </div>
+                                </section>
+                            </li>
+                        </ul>
                     </div>
                 </div>
             </div>
         </div>
 
-        <dialog id="registerDialog">
-            <div> 
-                <h2 class="main-text text-center">Создать учётную запись</h2>
-                <form id="register">
-                    <input name="username" type="text" placeholder="Имя пользователя">
-                    <input name="mail" type="email" placeholder="Почта">
-                    <input name="password" type="password" placeholder="Пароль">
-                    <h4 class="main-text text-center">Дата рождения</h4>
-                    <input name="dateOfBirth" type="date">
-                    <menu>
-                        <input type="submit" class="button-main">Зарегистрироваться</шт>
-                        <button id="cancelRegisterDialog" type="reset" class="button-main secondary-color">Закрыть</button>
-                    </menu>
-                </form>
-            </div>
-        </dialog>
-
-        <dialog id="logInDialog">
-            <div>
-                <h2 class="main-text text-center">Авторизация</h2>
-                <form id="logIn">
-                    <input name="mail" type="email" placeholder="Почта">
-                    <input name="password" type="password" placeholder="Пароль">
-                    <menu>
-                        <input type="submit" class="button-main">Зарегистрироваться</шт>
-                        <button id="cancelLogInDialog" type="reset" class="button-main secondary-color">Закрыть</button>
-                    </menu>
-                </form>
-            </div>
-        </dialog>
-
         <script src="https://www.gstatic.com/firebasejs/8.3.2/firebase.js"></script>
         <script src="https://www.gstatic.com/firebasejs/ui/4.8.0/firebase-ui-auth.js"></script>
         
         <script type="module" src="scripts.js"></script>
-        <script type="module" src="auth.js"></script>
     </body>
 </html>

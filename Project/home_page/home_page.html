@@ -29,9 +29,6 @@
                             <button class="button-main secondary-color" role="button" id="showLogInDialog">
                                 Войти
                             </button>
-                            <a class="button-main secondary-color" href="/home_page/profile_page.html">
-                                test
-                            </a>
                         </div>
                     </div>
                 </div>
@@ -42,9 +39,9 @@
             <div> 
                 <h2 class="main-text text-center">Создать учётную запись</h2>
                 <form id="register">
-                    <input name="username" type="text" placeholder="Имя пользователя">
-                    <input name="mail" type="email" placeholder="Почта">
-                    <input name="password" type="password" placeholder="Пароль">
+                    <input name="username" type="text" placeholder="Имя пользователя" required>
+                    <input name="mail" type="email" placeholder="Почта" required>
+                    <input minlength="6" name="password" type="password" placeholder="Пароль" required>
                     <h4 class="main-text text-center">Дата рождения</h4>
                     <input name="dateOfBirth" type="date">
                     <menu>
@@ -59,10 +56,10 @@
             <div>
                 <h2 class="main-text text-center">Авторизация</h2>
                 <form id="logIn">
-                    <input name="mail" type="email" placeholder="Почта">
-                    <input name="password" type="password" placeholder="Пароль">
+                    <input name="mail" type="email" placeholder="Почта" required>
+                    <input minlength="6" name="password" type="password" placeholder="Пароль" required>
                     <menu>
-                        <input type="submit" class="button-main">Зарегистрироваться</шт>
+                        <input type="submit" class="button-main" onclick="">Зарегистрироваться</шт>
                         <button id="cancelLogInDialog" type="reset" class="button-main secondary-color">Закрыть</button>
                     </menu>
                 </form>
