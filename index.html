@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width">
+        <link rel="stylesheet" href="style.css">
+        <link rel="preconnect" href="https://fonts.gstatic.com">
+        <link href="https://fonts.googleapis.com/css2?family=Roboto:ital@1&display=swap" rel="stylesheet">
+        <title>Ну типо Твиттер</title>
+    </head>
+    <body>
+        <div class="container full-size">
+            <div class="two-col-grid full-size">
+                <section class="grid-item">
+                    <img class="logo-image" src="img/GIVMA.png" alt="Logo">
+                </section>
+                <section class="grid-item">
+                    <div class="text-center">
+                        <h1 class="main-text">
+                            Аналог Твиттера
+                        </h1>
+                        <h4 class="main-text">
+                            Можешь запостить сюда свои мысли
+                        </h4>
+                        <div>
+                            <button class="button-main" role="button" id="showRegisterDialog">
+                                    Зарегистрироваться
+                            </button>
+                            <button class="button-main secondary-color" role="button" id="showLogInDialog">
+                                Войти
+                            </button>
+                        </div>
+                    </div>
+                </section>
+            </div>
+        </div>
+
+        <dialog id="registerDialog">
+            <div> 
+                <h2 class="main-text text-center">Создать учётную запись</h2>
+                <form id="register">
+                    <input name="username" type="text" placeholder="Имя пользователя" required>
+                    <input name="mail" type="email" placeholder="Почта" required>
+                    <input minlength="6" name="password" type="password" placeholder="Пароль" required>
+                    <h4 class="main-text text-center">Дата рождения</h4>
+                    <input name="dateOfBirth" type="date">
+                    <menu>
+                        <input type="submit" class="button-main">Зарегистрироваться</шт>
+                        <button id="cancelRegisterDialog" type="reset" class="button-main secondary-color">Закрыть</button>
+                    </menu>
+                </form>
+            </div>
+        </dialog>
+
+        <dialog id="logInDialog">
+            <div>
+                <h2 class="main-text text-center">Авторизация</h2>
+                <form id="logIn">
+                    <input name="mail" type="email" placeholder="Почта" required>
+                    <input minlength="6" name="password" type="password" placeholder="Пароль" required>
+                    <menu>
+                        <input type="submit" class="button-main" onclick="">Зарегистрироваться</шт>
+                        <button id="cancelLogInDialog" type="reset" class="button-main secondary-color">Закрыть</button>
+                    </menu>
+                </form>
+            </div>
+        </dialog>
+
+        <!--<script src="https://www.gstatic.com/firebasejs/8.3.2/firebase.js"></script>
+        <script src="https://www.gstatic.com/firebasejs/ui/4.8.0/firebase-ui-auth.js"></script>-->
+        
+        <script type="module" src="auth.js"></script>
+    </body>
+</html>
