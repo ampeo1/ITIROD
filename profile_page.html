@@ -13,6 +13,7 @@
             <nav class="header-left">
                 <img class="header-left" src="img/GIVMA.png" alt="Logo"/>
                 <ul>
+                    <li><a href="index.html">Главная</a></li>
                     <li><a href="profile_page.html">Мой Профиль</a></li>
                     <li><a href="lenta.html">Лента</a></li>
                 </ul>
@@ -25,14 +26,14 @@
                             <input type="image" src="img/search_button.svg">
                         </form>
                     </li>
-                    <li><button>Выход</button></li>
+                    <li><button class="signOut">Выход</button></li>
                 </ul>
             </div>
         </header>
         <div class="container">
             <section class="two-col-grid-page">
                 <div class="first-col-grid-page">
-                    <h1 class="main-text text-center">Ampeo</h1>
+                    <h1 id="title-username" class="main-text text-center">Ampeo</h1>
                     <img class="profile-avatar-main" src="img/method-draw-image.svg">
                     <h4 class="main-text text-center margin-text-tweet">Подписчики: 10</h4>
                     <h4 class="main-text text-center margin-text-tweet">Подписок: 15</h4>
@@ -122,6 +123,6 @@
         <script src="https://www.gstatic.com/firebasejs/8.3.2/firebase.js"></script>
         <script src="https://www.gstatic.com/firebasejs/ui/4.8.0/firebase-ui-auth.js"></script>
         
-        <script type="module" src="scripts.js"></script>
+        <script type="module" src="./dist/bundle.js"></script>
     </body>
 </html>

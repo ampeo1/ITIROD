@@ -6,9 +6,31 @@
         <link rel="stylesheet" href="style.css">
         <link rel="preconnect" href="https://fonts.gstatic.com">
         <link href="https://fonts.googleapis.com/css2?family=Roboto:ital@1&display=swap" rel="stylesheet">
+        <script src="https://www.gstatic.com/firebasejs/8.3.2/firebase.js"></script>
         <title>Ну типо Твиттер</title>
     </head>
     <body>
+        <header>
+            <nav class="header-left">
+                <img class="header-left" src="img/GIVMA.png" alt="Logo"/>
+                <ul>
+                    <li><a href="index.html">Главная</a></li>
+                    <li><a href="profile_page.html">Мой Профиль</a></li>
+                    <li><a href="lenta.html">Лента</a></li>
+                </ul>
+            </nav>
+            <div class="header-right">
+                <ul>
+                    <li>
+                        <form class="search-form">
+                            <input type="search" placeholder="Поиск">
+                            <input type="image" src="img/search_button.svg">
+                        </form>
+                    </li>
+                    <li><button class="signOut">Выход</button></li>
+                </ul>
+            </div>
+        </header>
         <div class="container full-size">
             <div class="two-col-grid full-size">
                 <section class="grid-item">
@@ -59,16 +81,13 @@
                     <input name="mail" type="email" placeholder="Почта" required>
                     <input minlength="6" name="password" type="password" placeholder="Пароль" required>
                     <menu>
-                        <input type="submit" class="button-main" onclick="" value="Зарегистрироваться">
+                        <input type="submit" class="button-main" onclick="" value="Вход">
                         <button id="cancelLogInDialog" type="reset" class="button-main secondary-color">Закрыть</button>
                     </menu>
                 </form>
             </div>
         </dialog>
-
-        <!--<script src="https://www.gstatic.com/firebasejs/8.3.2/firebase.js"></script>
-        <script src="https://www.gstatic.com/firebasejs/ui/4.8.0/firebase-ui-auth.js"></script>-->
         
-        <script src="/authorization.js"></script>
+        <script type="module" src="./dist/bundle.js"></script>
     </body>
 </html>
