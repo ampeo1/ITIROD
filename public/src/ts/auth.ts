@@ -10,8 +10,8 @@ export default class Auth{
         document.querySelector('#cancelRegisterDialog').addEventListener("click", Auth.cancelRegisterDialog);
         document.querySelector('#showLogInDialog').addEventListener("click", Auth.showLogInDialog);
         document.querySelector('#cancelLogInDialog').addEventListener("click", Auth.cancelLogInDialog);
+        document.querySelector('#registerButton').addEventListener("click", Auth.register);
         var form = <HTMLFormElement>document.querySelector('#register');
-        form.onsubmit = Auth.register;
         form = <HTMLFormElement>document.querySelector('#logIn');
         form.onsubmit = Auth.logIn;
     }
@@ -43,9 +43,9 @@ export default class Auth{
         var password = <HTMLInputElement>document.querySelector("input[name=password]");
         var dateOfBirth = <HTMLInputElement>document.querySelector("input[name=dateOfBirth]");
         var isCreated = Auth.firebase.createUser(mail.value, password.value, username.value);
+        console.log(isCreated);
         if (isCreated){
             Auth.cancelRegisterDialog();
-            return false;
         }
 
         return true;  

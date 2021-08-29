@@ -6,7 +6,6 @@ export default class Header{
     public static Initialize(fire: Firebase){
         Header.firebase = fire;
         document.querySelector('.signOut').addEventListener('click', Header.signOut);
-        Header.firebase.userIsSigned();
     }
 
     private static signOut(){
