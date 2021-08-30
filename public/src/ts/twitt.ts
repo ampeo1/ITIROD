@@ -1,26 +1,28 @@
+import { MetadataTwitt } from "./metadataTwitt";
+import { User } from "./user";
+
 export default class Twitt{
-    public readonly username?: string;
-    public readonly photoURL?: string;
+    public readonly userId: string;
     public readonly text?: string;
     public readonly likes?: number;
     public readonly retwitt?: number;
 
-    constructor(username: string, photoURL: string, text: string, likes: number, retwitt: number){
-        this.username = username;
-        this.photoURL = photoURL;
+    constructor(userId: string, text: string, likes: number, retwitt: number){
+        this.userId = userId;
         this.text = text;
         this.likes = likes;
         this.retwitt = retwitt;
     }
 
-    public static HTMLPresentation(twitt: Twitt){
+    public static HTMLPresentation(metadataTwitt: MetadataTwitt){
+        console.log(metadataTwitt.user);
         var li = document.createElement("li");
         var div = document.createElement('div');
         div.setAttribute('class', 'twitt');
 
         var image = document.createElement('img');
         image.setAttribute('class', 'profile-avatar twitt-avatar-size');
-        image.setAttribute('src', twitt.photoURL);
+        image.setAttribute('src', metadataTwitt.user.photoURL);
         div.appendChild(image);
 
         var mainPartTweetDiv = document.createElement('div');
@@ -28,12 +30,12 @@ export default class Twitt{
 
         var username = document.createElement('h4') as HTMLHeadingElement;
         username.setAttribute('class', 'nickname-on-tweet');
-        username.innerHTML = twitt.username;
+        username.innerHTML = metadataTwitt.user.username;
         mainPartTweetDiv.appendChild(username);
 
         var tweet = document.createElement('article') as HTMLElement;
         tweet.setAttribute('class', 'margin-text-tweet');
-        tweet.innerHTML = twitt.text;
+        tweet.innerHTML = metadataTwitt.twitt.text;
         mainPartTweetDiv.appendChild(tweet);
 
         div.appendChild(mainPartTweetDiv);

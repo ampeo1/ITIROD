@@ -1,13 +1,15 @@
-export class User{
-    public username: string;
-    public password: string;
-    public email: string;
-    public dateOfBirth: string;
+import Twitt from "./twitt";
 
-    constructor(username: string, password: string, email: string, dateOfBirth: string){
+export class User{
+    public userId: string;
+    public username: string;
+    public twitts: Twitt[];
+    public photoURL: string;
+
+    constructor(userId: string, username: string, photoURL: string, twitts: Twitt[]){
+        this.userId = userId;
         this.username = username;
-        this.password = password;
-        this.email = email;
-        this.dateOfBirth = dateOfBirth;
+        this.photoURL = photoURL;
+        this.twitts = twitts;
     }
 }

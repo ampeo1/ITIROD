@@ -569,3 +569,21 @@ label{
 .display-none{
     display:none;
 }
+
+.like-svg{
+    animation: change_fill 1s, popup 2s;
+    fill: #49549E; 
+    stroke: #49549E;
+    background-color: #49549E;
+    transition: .3s;
+}
+
+@keyframes reduce_radius {
+    from { r: 10; }
+    to { r: 3; }
+}
+@keyframes change_fill {
+    0% { fill: #49549E; }
+    75% { fill: #1bceb1; }
+    100% { fill: #1bce4f; }
+}

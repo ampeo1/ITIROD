@@ -1,6 +1,8 @@
 import firebase from 'firebase';
 import 'firebase/auth';
+import { MetadataTwitt } from './metadataTwitt';
 import Twitt from './twitt';
+import { User } from './user';
 
 export default class Firebase{
     private auth: firebase.auth.Auth;
@@ -27,10 +29,17 @@ export default class Firebase{
 
     public async createUser(email: string, password: string, username: string){
         var result = false;
+        const defaultPhotoURL = 'img/method-draw-image.svg';
         await this.auth.createUserWithEmailAndPassword(email, password).then((user) => {
             user.user.updateProfile({
                 displayName: username,
-                photoURL: 'img/method-draw-image.svg',
+                photoURL: defaultPhotoURL,
+            })
+            
+            this.database.ref(`users/${this.auth.currentUser.uid}`).set({
+                username: username,
+                photoURL: defaultPhotoURL,
+                userId: user.user.uid,
             })
 
             result = true;
@@ -73,8 +82,6 @@ export default class Firebase{
     }
 
     public getUserName(){
-        console.log(this.auth);
-        console.log(this.auth.currentUser);
         return this.auth.currentUser.displayName;
     }
 
@@ -100,6 +107,11 @@ export default class Firebase{
                 this.auth.currentUser.updateProfile({
                     photoURL: downloadURL,
                 });
+
+                this.database.ref(`users/${this.auth.currentUser.uid}`).update({
+                    photoURL: downloadURL,
+                });
+
                 image.setAttribute('src', downloadURL);
             })
         })
@@ -110,8 +122,7 @@ export default class Firebase{
     }
 
     public addTwitt(textTwitt: string){
-        console.log(this.database);
-        var twitt = new Twitt(this.auth.currentUser.displayName, this.auth.currentUser.photoURL, textTwitt, 0, 0);
+        var twitt = new Twitt(this.auth.currentUser.uid, textTwitt, 0, 0);
         var idTwitt = this.database.ref('twitts').push(twitt).key;
 
         return idTwitt;
@@ -130,13 +141,25 @@ export default class Firebase{
                 idTwitts.push(childShaphot.val().idTwitt);
             });
         });
-
+        
         return await this.getTwittsById(idTwitts);
     }
 
+    public eventListenerForTwitts(list: HTMLUListElement){
+        var twittsRef = this.database.ref(`users/${this.auth.currentUser.uid}/twitts`);
+        twittsRef.on('child_added', (data) => {
+            this.getTwittsById([data.val().idTwitt]).then((twitts) => {
+                twitts.forEach((twitt) => {
+                    list.insertAdjacentElement('afterbegin', Twitt.HTMLPresentation(twitt));
+                })
+            });
+        })
+    }
+
     private async getTwittsById(idTwitts: string[]){
-        let twitts : Twitt[] = [];
-        await this.database.ref(`twitts`).once('value', (snapshot) => {
+        let MetadataTwitts : MetadataTwitt [] = [];
+        let twitts: Twitt[] = [];
+        await this.database.ref(`twitts`).once('value', async (snapshot) => {
             snapshot.forEach((childShaphot) => {
                 if(idTwitts.includes(childShaphot.key)){
                     twitts.push(<Twitt>childShaphot.val());
@@ -144,6 +167,20 @@ export default class Firebase{
             })
         })
 
-        return twitts;
+        for(var i = 0; i < twitts.length; i++) {
+            var user = await this.getUser(twitts[i].userId);
+            MetadataTwitts.push(new MetadataTwitt (twitts[i], user));            
+        }
+
+        return MetadataTwitts;
+    }
+
+    public async getUser(userId: string){
+        var user: User;
+        await this.database.ref(`users/${userId}`).once('value', (snapshot) => {
+            user = <User>snapshot.val();
+        })
+
+        return user;
     }
 }

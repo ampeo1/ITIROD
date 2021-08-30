@@ -15,4 +15,4 @@ setTimeout(() => {
     if (window.location.pathname == '/profile_page.html'){
         MyProfile.Initialize(firebase);
     }
-}, 1000);
+}, 2000);

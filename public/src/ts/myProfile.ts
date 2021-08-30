@@ -20,7 +20,8 @@ export default class MyProfile{
         this.avatar = <HTMLImageElement>document.querySelector('#avatar');
         this.avatar.setAttribute('src', this.firebase.URLAvatar);
 
-        this.UploadTwitts();
+        //this.UploadTwitts();
+        this.AddEventListenerForTwitts();
     }
 
     private static UpdateAvatar(this: HTMLInputElement, ev: Event) {
@@ -34,15 +35,23 @@ export default class MyProfile{
     private static addTwitt(){
         var textTwitt = <HTMLTextAreaElement>document.querySelector("#textForNewTwittInput");
         var idTwitt = MyProfile.firebase.addTwitt(textTwitt.value);
+        textTwitt.value = "";
         MyProfile.firebase.registerTwittForUser(idTwitt);
     }
 
     private static UploadTwitts(){
         MyProfile.firebase.getTwittsUser().then((twitts) => {
             var list = <HTMLUListElement>document.querySelector("#twitts");
-            twitts.forEach((twitt: Twitt) => {
+            twitts.forEach((twitt) => {
                 list.insertAdjacentElement('afterbegin', Twitt.HTMLPresentation(twitt));
             });
+            
+            console.log(twitts.length);
         });
+    }
+
+    private static AddEventListenerForTwitts(){
+        var list = <HTMLUListElement>document.querySelector("#twitts");
+        MyProfile.firebase.eventListenerForTwitts(list);
     }
 };
