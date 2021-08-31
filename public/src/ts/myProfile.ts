@@ -1,9 +1,12 @@
 import Firebase from './firebase';
 import Twitt from './twitt';
+import { User } from './user';
 
 export default class MyProfile{
     private static firebase : Firebase;
     private static avatar: HTMLImageElement;
+    private static user: User;
+
     public static Initialize(firebase: Firebase){
         this.firebase = firebase;
         var usernameTitle = <HTMLElement>document.querySelector('#title-username');
@@ -54,4 +57,8 @@ export default class MyProfile{
         var list = <HTMLUListElement>document.querySelector("#twitts");
         MyProfile.firebase.eventListenerForTwitts(list);
     }
+
+    /*private static GetUser(){
+        console.log(window.)
+    }*/
 };

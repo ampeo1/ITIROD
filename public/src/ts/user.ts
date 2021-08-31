@@ -12,4 +12,22 @@ export class User{
         this.photoURL = photoURL;
         this.twitts = twitts;
     }
+
+    public static HTMLPresentationForSearch(user: User){
+        var div = <HTMLDivElement>document.createElement("div");
+        div.setAttribute('class', 'search-user margin-bottom-15');
+
+        var img = <HTMLImageElement>document.createElement("img");
+        img.setAttribute('class', 'profile-avatar twitt-avatar-size');
+        img.setAttribute('src', user.photoURL);
+
+        var a = <HTMLAnchorElement>document.createElement('a');
+        a.innerHTML = user.username;
+        a.setAttribute('href', `profile_page.html?uid=${user.userId}`);
+
+        div.append(img);
+        div.append(a);
+
+        return div;
+    }
 }

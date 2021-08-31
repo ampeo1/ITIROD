@@ -175,12 +175,27 @@ export default class Firebase{
         return MetadataTwitts;
     }
 
-    public async getUser(userId: string){
+    public async getUser(userId?: string){
+        if (userId == null){
+            userId = this.auth.currentUser.uid;
+        }
+
         var user: User;
         await this.database.ref(`users/${userId}`).once('value', (snapshot) => {
             user = <User>snapshot.val();
         })
 
         return user;
+    }
+
+    public async searchUsers(username: string){
+        var users: User[] = [];
+        await this.database.ref('users').orderByChild('username').startAt(username).once('value', (snapshot) => {
+            snapshot.forEach((user) => {
+                users.push(<User>user.val());
+            })
+        });
+
+        return users;
     }
 }

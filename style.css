@@ -587,3 +587,46 @@ label{
     75% { fill: #1bceb1; }
     100% { fill: #1bce4f; }
 }
+  
+  /* Контейнер <div> - необходим для размещения выпадающего содержимого */
+  .dropdown {
+    position: relative;
+    display: inline-block;
+  }
+  
+  /* Выпадающее содержимое (скрыто по умолчанию) */
+  .dropdown-content {
+    display: none;
+    position: absolute;
+    background-color: rgb(77, 75, 75);
+    min-width: 230px;
+    border: 1px solid white;
+    z-index: 1;
+  }
+
+  .search-user{
+      display: flex;
+      flex-direction: row;
+      justify-content: flex-start;
+      align-items: center;
+  }
+  
+  /* Ссылки внутри выпадающего списка */
+  .dropdown-content a{
+    color: #E7BD70;
+    padding: 12px 16px;
+  }
+  
+  /* Изменение цвета выпадающих ссылок при наведении курсора */
+  .dropdown-content div:hover {background-color: #131313}
+  
+  /* Показать выпадающее меню (используйте JS, чтобы добавить этот класс в .dropdown-content содержимого, когда пользователь нажимает на кнопку выпадающего списка) */
+  .show {display:block;}
+
+  .padding-10{
+      padding: 10px;
+  }
+
+  .margin-bottom-15{
+    margin-bottom: 15px;
+  }
