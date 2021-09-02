@@ -7,24 +7,35 @@ export default class MyProfile{
     private static avatar: HTMLImageElement;
     private static user: User;
 
-    public static Initialize(firebase: Firebase){
+    public static Initialize(firebase: Firebase, userId: string){
         this.firebase = firebase;
-        var usernameTitle = <HTMLElement>document.querySelector('#title-username');
-        usernameTitle.innerHTML = this.firebase.getUserName();
-        var loadAvatarButton = <HTMLButtonElement>document.querySelector('#load-avatar');
+        MyProfile.GetUser(userId).then((user) => {
+            this.user = user;
+            var usernameTitle = <HTMLElement>document.querySelector('#title-username');
+            usernameTitle.innerHTML = this.user.username;
+
+            this.avatar = <HTMLImageElement>document.querySelector('#avatar');
+            this.avatar.setAttribute('src', this.user.photoURL);
+    
+            this.AddEventListenerForTwitts();
+
+            var loadAvatarButton = <HTMLButtonElement>document.querySelector('#load-avatar');
+            var input = <HTMLInputElement>document.querySelector('#file');
+            var form = <HTMLFormElement>document.querySelector('#add-twitt-form');
+            if (this.firebase.currentUserId != user.userId){
+                loadAvatarButton.setAttribute('class', 'display-none');
+                form.setAttribute('class', 'display-none');
+            }
+
+            input.addEventListener('input', MyProfile.UpdateAvatar);
+            loadAvatarButton.addEventListener('click', () => {
+                input.click();
+            })
+        });
+
         var addTwittButton = <HTMLButtonElement>document.querySelector('#newTwittButton');
         addTwittButton.addEventListener('click', MyProfile.addTwitt);
-        var input = <HTMLInputElement>document.querySelector('#file');
-        input.addEventListener('input', MyProfile.UpdateAvatar);
-        loadAvatarButton.addEventListener('click', () => {
-            input.click();
-        })
 
-        this.avatar = <HTMLImageElement>document.querySelector('#avatar');
-        this.avatar.setAttribute('src', this.firebase.URLAvatar);
-
-        //this.UploadTwitts();
-        this.AddEventListenerForTwitts();
     }
 
     private static UpdateAvatar(this: HTMLInputElement, ev: Event) {
@@ -55,10 +66,10 @@ export default class MyProfile{
 
     private static AddEventListenerForTwitts(){
         var list = <HTMLUListElement>document.querySelector("#twitts");
-        MyProfile.firebase.eventListenerForTwitts(list);
+        MyProfile.firebase.eventListenerForTwitts(list, this.user.userId);
     }
 
-    /*private static GetUser(){
-        console.log(window.)
-    }*/
+    private static GetUser(userId: string){
+        return this.firebase.getUser(userId)
+    }
 };

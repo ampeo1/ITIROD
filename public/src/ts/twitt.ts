@@ -15,7 +15,6 @@ export default class Twitt{
     }
 
     public static HTMLPresentation(metadataTwitt: MetadataTwitt){
-        console.log(metadataTwitt.user);
         var li = document.createElement("li");
         var div = document.createElement('div');
         div.setAttribute('class', 'twitt');

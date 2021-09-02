@@ -8,6 +8,7 @@ export default class Firebase{
     private auth: firebase.auth.Auth;
     private storage: firebase.storage.Storage;
     private database: firebase.database.Database;
+    private currentUserUid: string;
 
     constructor(){
         const firebaseConfig = {
@@ -25,6 +26,10 @@ export default class Firebase{
         this.auth = firebase.auth();
         this.storage = firebase.storage();
         this.database = firebase.database();
+    }
+
+    public get currentUserId(){
+        return this.currentUserUid;
     }
 
     public async createUser(email: string, password: string, username: string){
@@ -70,6 +75,7 @@ export default class Firebase{
             }
             else {
                 await this.auth.updateCurrentUser(user);
+                this.currentUserUid = this.auth.currentUser.uid;
                 console.log("Пользователь авторизован: " + user.email);
             }
         });
@@ -81,9 +87,6 @@ export default class Firebase{
         this.auth.signOut();
     }
 
-    public getUserName(){
-        return this.auth.currentUser.displayName;
-    }
 
     public uploadAvatar(data: Blob, image: HTMLImageElement){
         var ref = this.storage.ref();
@@ -117,10 +120,6 @@ export default class Firebase{
         })
     }
 
-    public get URLAvatar(){
-        return this.auth.currentUser.photoURL;
-    }
-
     public addTwitt(textTwitt: string){
         var twitt = new Twitt(this.auth.currentUser.uid, textTwitt, 0, 0);
         var idTwitt = this.database.ref('twitts').push(twitt).key;
@@ -145,8 +144,8 @@ export default class Firebase{
         return await this.getTwittsById(idTwitts);
     }
 
-    public eventListenerForTwitts(list: HTMLUListElement){
-        var twittsRef = this.database.ref(`users/${this.auth.currentUser.uid}/twitts`);
+    public eventListenerForTwitts(list: HTMLUListElement, userId: string){
+        var twittsRef = this.database.ref(`users/${userId}/twitts`);
         twittsRef.on('child_added', (data) => {
             this.getTwittsById([data.val().idTwitt]).then((twitts) => {
                 twitts.forEach((twitt) => {

@@ -13,6 +13,7 @@ setTimeout(() => {
     }
 
     if (window.location.pathname == '/profile_page.html'){
-        MyProfile.Initialize(firebase);
+        let uid = window.location.search.substr(1).split("=")[1];
+        MyProfile.Initialize(firebase, uid);
     }
 }, 2000);
