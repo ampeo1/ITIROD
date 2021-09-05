@@ -22,9 +22,12 @@
             <div class="header-right">
                 <ul>
                     <li>
-                        <form class="search-form">
-                            <input id="search-input" type="search" placeholder="Поиск">
-                            <input type="image" src="img/search_button.svg">
+                        <form class="search-form" onsubmit="return false">
+                            <div class="dropdown">
+                                <input type="search" placeholder="Поиск" id="search-input" autocomplete="off">
+                                <div id="myDropdown" class="dropdown-content">
+                                </div>
+                            </div>
                         </form>
                     </li>
                     <li><button class="signOut">Выход</button></li>

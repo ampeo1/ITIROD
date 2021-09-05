@@ -17,25 +17,32 @@ export default class MyProfile{
             this.avatar = <HTMLImageElement>document.querySelector('#avatar');
             this.avatar.setAttribute('src', this.user.photoURL);
     
-            this.AddEventListenerForTwitts();
+            this.addEventListenerForTwitts();
+            this.addEventListenerForSubscribers();
+            this.addEventListenerForSubscribtions();
 
             var loadAvatarButton = <HTMLButtonElement>document.querySelector('#load-avatar');
             var input = <HTMLInputElement>document.querySelector('#file');
             var form = <HTMLFormElement>document.querySelector('#add-twitt-form');
+            var subscribeButton = <HTMLButtonElement>document.querySelector('#subscribe');
             if (this.firebase.currentUserId != user.userId){
                 loadAvatarButton.setAttribute('class', 'display-none');
                 form.setAttribute('class', 'display-none');
+            }
+            else{
+                subscribeButton.setAttribute('class', 'display-none');
             }
 
             input.addEventListener('input', MyProfile.UpdateAvatar);
             loadAvatarButton.addEventListener('click', () => {
                 input.click();
             })
+
+            subscribeButton.addEventListener('click', MyProfile.Subscribe);
         });
 
         var addTwittButton = <HTMLButtonElement>document.querySelector('#newTwittButton');
         addTwittButton.addEventListener('click', MyProfile.addTwitt);
-
     }
 
     private static UpdateAvatar(this: HTMLInputElement, ev: Event) {
@@ -53,23 +60,28 @@ export default class MyProfile{
         MyProfile.firebase.registerTwittForUser(idTwitt);
     }
 
-    private static UploadTwitts(){
-        MyProfile.firebase.getTwittsUser().then((twitts) => {
-            var list = <HTMLUListElement>document.querySelector("#twitts");
-            twitts.forEach((twitt) => {
-                list.insertAdjacentElement('afterbegin', Twitt.HTMLPresentation(twitt));
-            });
-            
-            console.log(twitts.length);
-        });
+    private static addEventListenerForTwitts(){
+        var list = <HTMLUListElement>document.querySelector("#twitts");
+        MyProfile.firebase.eventListenerForTwitts(list, MyProfile.user.userId);
     }
 
-    private static AddEventListenerForTwitts(){
-        var list = <HTMLUListElement>document.querySelector("#twitts");
-        MyProfile.firebase.eventListenerForTwitts(list, this.user.userId);
+    private static addEventListenerForSubscribers(){
+        var countSubscribers = <HTMLAnchorElement>document.querySelector('#count-subscribers');
+        countSubscribers.setAttribute('href', `users.html?uid=${MyProfile.user.userId}&type=subscribers`)
+        MyProfile.firebase.eventListenerForSubscribers(countSubscribers, MyProfile.user.userId)
+    }
+
+    private static addEventListenerForSubscribtions(){
+        var countSubscribers = <HTMLAnchorElement>document.querySelector('#count-subscribtions');
+        countSubscribers.setAttribute('href', `users.html?uid=${MyProfile.user.userId}&type=subscriptions`)
+        MyProfile.firebase.eventListenerForSubscriptions(countSubscribers, MyProfile.user.userId)
     }
 
     private static GetUser(userId: string){
-        return this.firebase.getUser(userId)
+        return MyProfile.firebase.getUser(userId)
+    }
+
+    private static Subscribe(){
+        MyProfile.firebase.Subscribe(MyProfile.user.userId);
     }
 };

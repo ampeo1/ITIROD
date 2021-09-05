@@ -20,9 +20,12 @@
         <div class="header-right">
             <ul>
                 <li>
-                    <form class="search-form">
-                        <input type="search" placeholder="Поиск">
-                        <input type="image" src="img/search_button.svg">
+                    <form class="search-form" onsubmit="return false">
+                        <div class="dropdown">
+                            <input type="search" placeholder="Поиск" id="search-input" autocomplete="off">
+                            <div id="myDropdown" class="dropdown-content">
+                            </div>
+                        </div>
                     </form>
                 </li>
                 <li><button class="signOut">Выход</button></li>
@@ -30,45 +33,8 @@
         </div>
     </header>
     <main class="container">
-        <div class="three-col-grid">
-            <div class="three-grid-item">
-                <section class="card">
-                    <img class="profile-avatar user-page-size-avatar" src="img/method-draw-image.svg">
-                    <h3 class="main-text text-center users-text-padding">Username</h3>
-                    <h4 class="main-text text-center users-text-padding">Подписчики: 15</h4>
-                    <h4 class="main-text text-center users-text-padding">Подписки: 15</h4>
-                    <button class="button-main">Подписаться</button>
-                </section>
-            </div>
-            <div class="three-grid-item border">
-                <section class="card">
-                    <img class="profile-avatar user-page-size-avatar text-center" src="img/method-draw-image.svg">
-                    <h3 class="main-text text-center users-text-padding">Username</h3>
-                    <h4 class="main-text text-center users-text-padding">Подписчики: 15</h4>
-                    <h4 class="main-text text-center users-text-padding">Подписки: 15</h4>
-                    <button class="button-main">Подписаться</button>
-                </section>
-            </div>
-            <div class="three-grid-item border">
-                <section class="card">
-                    <img class="profile-avatar user-page-size-avatar" src="img/method-draw-image.svg">
-                    <h3 class="main-text text-center users-text-padding">Username</h3>
-                    <h4 class="main-text text-center users-text-padding">Подписчики: 15</h4>
-                    <h4 class="main-text text-center users-text-padding">Подписки: 15</h4>
-                    <button class="button-main">Подписаться</button>
-                </section>
-            </div>
-            <div class="three-grid-item border">
-                <section class="card">
-                    <img class="profile-avatar user-page-size-avatar" src="img/method-draw-image.svg">
-                    <h3 class="main-text text-center users-text-padding">Username</h3>
-                    <h4 class="main-text text-center users-text-padding">Подписчики: 15</h4>
-                    <h4 class="main-text text-center users-text-padding">Подписки: 15</h4>
-                    <button class="button-main">Подписаться</button>
-                </section>
-            </div>
+        <div id="users-container" class="three-col-grid">
         </div>
-
     </main>
 
     <script type="module" src="./dist/bundle.js"></script>

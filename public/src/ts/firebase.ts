@@ -87,6 +87,27 @@ export default class Firebase{
         this.auth.signOut();
     }
 
+    public async Subscribe(userId: string){
+        await this.database.ref(`users/${userId}/subscribers`).orderByChild('userId').once('value', async (snapshot) => {
+            var isContains = false;
+            snapshot.forEach(item => {
+                var id = <string>item.val().userId;
+                if (id === this.auth.currentUser.uid) {
+                    isContains = true;
+                }
+            });
+
+            if (!isContains) {
+                this.database.ref(`users/${this.auth.currentUser.uid}/subscriptions`).push({
+                    userId: userId
+                });
+    
+                this.database.ref(`users/${userId}/subscribers`).push({
+                    userId: this.auth.currentUser.uid
+                });
+            }
+        });
+    }
 
     public uploadAvatar(data: Blob, image: HTMLImageElement){
         var ref = this.storage.ref();
@@ -155,6 +176,26 @@ export default class Firebase{
         })
     }
 
+    public eventListenerForSubscribers(heading: HTMLAnchorElement, userId: string){
+        var subscribersRef = this.database.ref(`users/${userId}/subscribers`);
+        var countSubscribers;
+        subscribersRef.on('child_added', (snapshot) => {
+            countSubscribers = snapshot.numChildren();
+            heading.innerText = `Подписчиков: ${countSubscribers}`;
+        })
+    }
+
+    public eventListenerForSubscriptions(heading: HTMLAnchorElement, userId: string){
+        var subscribersRef = this.database.ref(`users/${userId}/subscriptions`);
+        var countSubscriptions;
+        subscribersRef.on('child_added', (snapshot) => {
+            countSubscriptions = snapshot.numChildren();
+            heading.innerText = `Подписок: ${countSubscriptions}`;
+        })
+
+        console.log("вошёл в event");
+    }
+
     private async getTwittsById(idTwitts: string[]){
         let MetadataTwitts : MetadataTwitt [] = [];
         let twitts: Twitt[] = [];
@@ -182,7 +223,11 @@ export default class Firebase{
         var user: User;
         await this.database.ref(`users/${userId}`).once('value', (snapshot) => {
             user = <User>snapshot.val();
+            user.countSubscribers = snapshot.child('subscribers').numChildren();
+            user.countSubscriptions = snapshot.child('subscriptions').numChildren();
         })
+
+        await this.database.ref(`users/${userId}/subscribers`)
 
         return user;
     }
@@ -194,6 +239,23 @@ export default class Firebase{
                 users.push(<User>user.val());
             })
         });
+
+        return users;
+    }
+
+    public async getUsers(userId: string, type: string){
+        var users: User[] = [];
+        var userIds: string[] = [];
+        await this.database.ref(`users/${userId}/${type}`).once('value', (snapshot) => {
+            snapshot.forEach((userId) => {
+                userIds.push(<string>userId.val().userId);
+            });
+        });
+
+        for (var i = 0; i < userIds.length; i++){
+            var user = await this.getUser(userIds[i]);
+            users.push(user);
+        }
 
         return users;
     }
