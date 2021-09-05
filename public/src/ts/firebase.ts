@@ -151,27 +151,41 @@ export default class Firebase{
     public registerTwittForUser(idTwitt: string){
         this.database.ref(`users/${this.auth.currentUser.uid}/twitts`).push({
             idTwitt: idTwitt,
-        });
+        }); 
+    }
+
+    public removeTwittForUser(idTwitt: string){
+        this.database.ref(`users/${this.auth.currentUser.uid}/twitts`).orderByChild(idTwitt).equalTo(idTwitt).ref.remove();
     }
 
     public async getTwittsUser(){
-        let idTwitts: string[] = [];
-        this.database.ref(`users/${this.auth.currentUser.uid}/twitts`).once('value', (snapshot) => {
+        let twitts: MetadataTwitt[] = [];
+        await this.database.ref(`users/${this.auth.currentUser.uid}/twitts`).once('value', (snapshot) => {
             snapshot.forEach((childShaphot) => {
-                idTwitts.push(childShaphot.val().idTwitt);
+                var item = childShaphot.val();
+                var metaData = new MetadataTwitt();
+                metaData.idTwitt = item.idTwitt;
+                metaData.isLike = item.isLike;
+                metaData.isRetwitt = item.isRetwitt;
+                twitts.push(metaData);
             });
         });
         
-        return await this.getTwittsById(idTwitts);
+        return await this.getTwittsById(twitts);
     }
 
     public eventListenerForTwitts(list: HTMLUListElement, userId: string){
         var twittsRef = this.database.ref(`users/${userId}/twitts`);
         twittsRef.on('child_added', (data) => {
-            this.getTwittsById([data.val().idTwitt]).then((twitts) => {
-                twitts.forEach((twitt) => {
-                    list.insertAdjacentElement('afterbegin', Twitt.HTMLPresentation(twitt));
-                })
+            var item = data.val();
+            var metadataTwitt = new MetadataTwitt();
+            metadataTwitt.idTwitt = item.idTwitt;
+            this.getHistory(metadataTwitt).then(metadataTwitt => {
+                this.getTwittsById([metadataTwitt]).then((twitts) => {
+                    twitts.forEach((twitt) => {
+                        list.insertAdjacentElement('afterbegin', Twitt.HTMLPresentation(twitt, this));
+                    })
+                });
             });
         })
     }
@@ -192,27 +206,97 @@ export default class Firebase{
             countSubscriptions = snapshot.numChildren();
             heading.innerText = `Подписок: ${countSubscriptions}`;
         })
-
-        console.log("вошёл в event");
     }
 
-    private async getTwittsById(idTwitts: string[]){
-        let MetadataTwitts : MetadataTwitt [] = [];
-        let twitts: Twitt[] = [];
+    private async getTwittsById(twitts: MetadataTwitt[]){
         await this.database.ref(`twitts`).once('value', async (snapshot) => {
             snapshot.forEach((childShaphot) => {
-                if(idTwitts.includes(childShaphot.key)){
-                    twitts.push(<Twitt>childShaphot.val());
+                var index = twitts.findIndex(item => item.idTwitt === childShaphot.key);
+                if(index != -1){
+                    twitts[index].twitt = <Twitt>childShaphot.val();
                 }
             })
         })
 
         for(var i = 0; i < twitts.length; i++) {
-            var user = await this.getUser(twitts[i].userId);
-            MetadataTwitts.push(new MetadataTwitt (twitts[i], user));            
+            twitts[i].user = await this.getUser(twitts[i].twitt.userId);         
         }
 
-        return MetadataTwitts;
+        return twitts;
+    }
+
+    public async disableLikeTwitt(twittId: string){
+        this.database.ref(`users/${this.auth.currentUser.uid}/history/${twittId}`).update({
+            isLike: false,
+        })
+
+        var count: number;
+        await this.database.ref(`twitts/${twittId}`).once('value', (snapshot) => {
+            count = snapshot.val().likes;
+        })
+
+        this.database.ref(`twitts/${twittId}`).update({
+            likes: count - 1,
+        })
+    }
+
+    public async likeTwitt(twittId: string){
+        this.database.ref(`users/${this.auth.currentUser.uid}/history/${twittId}`).update({
+            isLike: true,
+        })
+
+        var count: number;
+        await this.database.ref(`twitts/${twittId}`).once('value', (snapshot) => {
+            count = snapshot.val().likes;
+        })
+
+        this.database.ref(`twitts/${twittId}`).update({
+            likes: count + 1,
+        })
+    }
+
+    public async retwittTwitt(twittId: string){
+        this.database.ref(`users/${this.auth.currentUser.uid}/history/${twittId}`).update({
+            isRetwitt: true,
+        });
+
+        var count: number;
+        await this.database.ref(`twitts/${twittId}`).once('value', (snapshot) => {
+            count = snapshot.val().retwitt;
+        })
+
+        this.database.ref(`twitts/${twittId}`).update({
+            retwitt: count + 1,
+        })
+
+        this.registerTwittForUser(twittId);
+    }
+
+    public async disableRetwittTwitt(twittId: string){
+        this.database.ref(`users/${this.auth.currentUser.uid}/history/${twittId}`).update({
+            isRetwitt: false,
+        });
+
+        var count: number;
+        await this.database.ref(`twitts/${twittId}`).once('value', (snapshot) => {
+            count = snapshot.val().retwitt;
+        })
+
+        this.database.ref(`twitts/${twittId}`).update({
+            retwitt: count - 1,
+        })
+
+        this.removeTwittForUser(twittId);
+    }
+
+    public async getHistory(metadataTwitt: MetadataTwitt){
+        await this.database.ref(`users/${this.auth.currentUser.uid}/history/${metadataTwitt.idTwitt}`).once('value', snapshot => {
+            var item = snapshot.val();
+            metadataTwitt.isLike = item?.isLike;
+            metadataTwitt.isRetwitt = item?.isRetwitt;
+        })
+
+        return metadataTwitt;
     }
 
     public async getUser(userId?: string){
